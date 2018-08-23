@@ -107,6 +107,8 @@ class Dict(dict):
         return item
 
     def __getattr__(self, item):
+        if item.startswith('__'):
+            return super().__getattribute__(item)
         return self.__getitem__(item)
 
     def __getitem__(self, name):
