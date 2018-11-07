@@ -33,7 +33,7 @@ def get_version(pkg):
     raise RuntimeError("Unable to find __version__ string in %s." % path)
 
 setup(name='addicted3',
-      version=get_version('addicted3'),
+      version=get_version('addicted'),
       description='Enhanced dict for python 3',
       long_description=long_description,
       classifiers=[
@@ -46,7 +46,7 @@ setup(name='addicted3',
       author='Eric Lapouyade',
       author_email='elapouya@gmail.com',
       license='LGPL 2.1',
-      packages=['addicted3'],
-      install_requires = [],
+      packages=['addicted'],
+      install_requires = ['noattr'],
       eager_resources = [],
       zip_safe=False)
