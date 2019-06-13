@@ -348,7 +348,7 @@ class AddDict(Dict):
         return dct
 
     def count_some_values(self,pattern,ignore_case=False):
-        if isinstance(pattern,basestring):
+        if isinstance(pattern,str):
             pattern = re.compile(pattern, re.I if ignore_case else 0)
         if callable(pattern):
             return sum(( 1 if pattern(v) else 0 for v in self.itervalues()))
@@ -356,7 +356,7 @@ class AddDict(Dict):
             return sum(( 1 if pattern.search(str(v)) else 0 for v in self.itervalues()))
 
     def count_some_keys(self,pattern,ignore_case=False):
-        if isinstance(pattern,basestring):
+        if isinstance(pattern,str):
             pattern = re.compile(pattern, re.I if ignore_case else 0)
         if callable(pattern):
             return sum(( 1 if pattern(v) else 0 for v in self.iterkeys()))
@@ -367,7 +367,7 @@ class AddDict(Dict):
         return sum(( 1 if filter(k,v) else 0 for k,v in self.iteritems()))
 
     def iter_some_items(self,pattern,ignore_case=False):
-        if isinstance(pattern,basestring):
+        if isinstance(pattern,str):
             pattern = re.compile(pattern, re.I if ignore_case else 0)
         if callable(pattern):
             return ( (k,v) for k,v in self.iteritems() if pattern(k,v) )
@@ -375,7 +375,7 @@ class AddDict(Dict):
             return ( (k,v) for k,v in self.iteritems() if pattern.search(str(k)) )
 
     def iter_some_values(self,pattern,ignore_case=False):
-        if isinstance(pattern,basestring):
+        if isinstance(pattern,str):
             pattern = re.compile(pattern, re.I if ignore_case else 0)
         if callable(pattern):
             return ( v for v in self.itervalues() if pattern(v) )
@@ -383,7 +383,7 @@ class AddDict(Dict):
             return ( v for v in self.itervalues() if pattern.search(str(v)) )
 
     def iter_some_keys(self,pattern,ignore_case=False):
-        if isinstance(pattern,basestring):
+        if isinstance(pattern,str):
             pattern = re.compile(pattern, re.I if ignore_case else 0)
         if callable(pattern):
             return ( k for k in self.iterkeys() if pattern(k) )
@@ -400,7 +400,7 @@ class AddDict(Dict):
         return list(self.iter_some_keys(self,pattern,ignore_case))
 
     def mget(self,*key_list):
-        if isinstance(key_list,basestring):
+        if isinstance(key_list,str):
             key_list = key_list.split(',')
         # le string formatting veut absolument un tupple...
         return tuple([ self[k] for k in key_list ])
@@ -411,7 +411,7 @@ class AddDict(Dict):
             >>> {'b':2,'c':3}
             >>> print d.extract_keys(['b','c','d'])
             >>> {'b':2,'c':3} """
-        if isinstance(key_list,basestring):
+        if isinstance(key_list,str):
             key_list = key_list.split(',')
         return type(self)([ (k,self[k]) for k in key_list if k in self ])
 
@@ -422,30 +422,30 @@ class AddDict(Dict):
             >>> d = {'a':1,'b':2,'c':3}
             >>> print d.exclude_keys(['b','c','d'])
             >>> {'a':1} """
-        if isinstance(key_list,basestring):
+        if isinstance(key_list,str):
             key_list = key_list.split(',')
         return type(self)([ (k,self[k]) for k in self if k not in key_list ])
 
 
     def parse_booleans(self,key_list):
-        if isinstance(key_list,basestring):
+        if isinstance(key_list,str):
             key_list = key_list.split(',')
         for k in key_list:
             if k in self:
                 val = self[k]
-                if isinstance(val,basestring):
+                if isinstance(val,str):
                     if val.lower() == 'false':
                         self[k] = False
                     elif val.lower() == 'true':
                         self[k] = True
 
     def parse_numbers(self,key_list):
-        if isinstance(key_list,basestring):
+        if isinstance(key_list,str):
             key_list = key_list.split(',')
         for k in key_list:
             if k in self:
                 val = self[k]
-                if isinstance(val,basestring):
+                if isinstance(val,str):
                     try:
                         self[k] = float(val) if '.' in val else int(val)
                     except ValueError:
