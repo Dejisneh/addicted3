@@ -5,7 +5,7 @@ Création : 30 juin 2015
 @author: Eric Lapouyade
 '''
 
-__version__ = '3.0.0'
+__version__ = '3.0.1'
 
 __all__ = ['Dict', 'AddDict', 'NoAttrDict', 'NoAttr']
 
